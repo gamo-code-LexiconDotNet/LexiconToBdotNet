@@ -7,71 +7,14 @@ namespace LexiconTestTasksCsharp
 {
     class Task
     {
-        public static void Run()
-        {
-            bool show = true;
-            while (show)
-                show = Menu();
-
-            Environment.Exit(0);
-        }
-
-        public static bool Menu()
-        {
-            WriteLine("\nLexicon Test and Assessment - C#.Net Programming");
-
-            Write("Choose what to to:\n" +
-                "1)  Hello World.\n" +
-                "2)  Input info.\n" +
-                "3)  Change terminal color.\n" +
-                "4)  Todays date.\n" +
-                "5)  Max of two numbers.\n" +
-                "6)  Guess a number.\n" +
-                "7)  Save text to file.\n" +
-                "8)  Read text from file.\n" +
-                "9)  Do some math.\n" +
-                "10) Print multiplication table\n" +
-                "11) Sort an array\n" +
-                "12) Test palindrome\n" +
-                "13) Print range\n" +
-                "14) Odd or even numbers\n" +
-                "15) Sum numbers\n" +
-                "16) Game character\n" +
-                "0)  Exit\n" +
-                "> "
-            );
-
-            string input = ReadLine();
-            Clear();
-            switch (input)
-            {
-                case "0": return false;
-                case "1": HelloWorld(); return true;
-                case "2": Name(); return true;
-                case "3": TerminalColor(); return true;
-                case "4": Today(); return true;
-                case "5": Max(); return true;
-                case "6": GuessNumber(); return true;
-                case "7": SaveToFile(); return true;
-                case "8": ReadFromFile(); return true;
-                case "9": Calculate(); return true;
-                case "10": MultiplicationTable(); return true;
-                case "11": SortArray(); return true;
-                case "12": TestPalindrome(); return true;
-                case "13": PrintRange(); return true;
-                case "14": OddEven(); return true;
-                case "15": Sum(); return true;
-                case "16": GameCharacter(); return true;
-                default: return true;
-            }
-        }
-
-        private static void HelloWorld()
+        // 1
+        public static void HelloWorld()
         {
             WriteLine("Hello World!");
         }
 
-        private static void Name()
+        // 2
+        public static void Name()
         {
             string fname, lname, age;
             Write("First name: ");
@@ -84,6 +27,7 @@ namespace LexiconTestTasksCsharp
             WriteLine($"Your name is {fname} {lname} and you are {age} old");
         }
 
+        // 3
         public static void TerminalColor()
         {
             if (terminalColor == 0)
@@ -95,34 +39,27 @@ namespace LexiconTestTasksCsharp
                 Console.ForegroundColor = terminalColor;
                 terminalColor = 0;
             }
-
         }
 
-        private static void Today()
+        // 4
+        public static void Today()
         {
             WriteLine(DateTime.Now.ToString("yyyy-MM-dd"));
         }
 
-        private static void Max()
+        // 5
+        public static void Max()
         {
             int a, b;
 
-            try
-            {
-                Write("Input a number\n> ");
-                a = Convert.ToInt32(ReadLine());
-                Write("Input another number\n> ");
-                b = Convert.ToInt32(ReadLine());
-            }
-            catch {
-                WriteLine("You must input two numbers.");
+            if (!ReadTwoNumbers(out a, out b))
                 return;
-            }
 
             WriteLine((a < b ? b : a));
         }
 
-        private static void GuessNumber()
+        // 6
+        public static void GuessNumber()
         {
             int number = random.Next(1, 100);
             int guesses = 0;
@@ -154,7 +91,8 @@ namespace LexiconTestTasksCsharp
             }
         }
 
-        private static void SaveToFile()
+        // 7
+        public static void SaveToFile()
         {
             Write("Input text to save to file\n> ");
             string input = ReadLine();
@@ -170,7 +108,8 @@ namespace LexiconTestTasksCsharp
             WriteLine("Saved.");
         }
 
-        private static void ReadFromFile()
+        // 8
+        public static void ReadFromFile()
         {
             try
             {
@@ -184,7 +123,8 @@ namespace LexiconTestTasksCsharp
             }
         }
 
-        private static void Calculate()
+        // 9
+        public static void Calculate()
         {
             Write("Input a number\n> ");
             int num = 0;
@@ -201,6 +141,7 @@ namespace LexiconTestTasksCsharp
             WriteLine("{0}\n{1}\n{2}", Math.Sqrt(num), Math.Pow(num, 2), Math.Pow(num, 10));
         }
 
+        // 10
         public static void MultiplicationTable()
         {
             StringBuilder table = new StringBuilder();
@@ -215,6 +156,7 @@ namespace LexiconTestTasksCsharp
             WriteLine(table.ToString());
         }
 
+        // 11
         public static void SortArray()
         {
             int arraySize = 10;
@@ -239,7 +181,8 @@ namespace LexiconTestTasksCsharp
             WriteLine("{0, 4}", string.Join(" ", dst));
         }
 
-        private static void TestPalindrome()
+        // 12
+        public static void TestPalindrome()
         {
             Write("Input a word\n> ");
             string input = ReadLine();
@@ -255,21 +198,13 @@ namespace LexiconTestTasksCsharp
             WriteLine("Palindrome");
         }
 
-        private static void PrintRange()
+        // 13
+        public static void PrintRange()
         {
             int a, b;
-            try
-            {
-                Write("Input a number\n> ");
-                a = Convert.ToInt32(ReadLine());
-                Write("Input another number\n> ");
-                b = Convert.ToInt32(ReadLine());
-            }
-            catch
-            {
-                WriteLine("You must input two numbers.");
+
+            if (!ReadTwoNumbers(out a, out b))
                 return;
-            }
 
             if (a < b)
                 for (int i = a + 1; i < b; i++)
@@ -277,10 +212,12 @@ namespace LexiconTestTasksCsharp
             else
                 for (int i = a - 1; i > b; i--)
                     Write("{0} ", i);
+
             WriteLine();
         }
 
-        private static void OddEven()
+        // 14
+        public static void OddEven()
         {
             string odd = "", even = "";
             int[] numbers = ReadCommaSeparatedInput();
@@ -297,7 +234,8 @@ namespace LexiconTestTasksCsharp
             WriteLine(odd);
         }
 
-        private static void Sum()
+        // 15
+        public static void Sum()
         {
             int sum = 0;
             int[] numbers = ReadCommaSeparatedInput();
@@ -310,6 +248,29 @@ namespace LexiconTestTasksCsharp
             WriteLine(sum);
         }
 
+        // 16
+        public static void GameCharacter()
+        {
+            Write("Input a character name\n> ");
+            string input = ReadLine();
+
+            Character character;
+
+            try
+            {
+                character = new Character(input);
+            }
+            catch
+            {
+                WriteLine("Could not create character.");
+                return;
+            }
+
+            WriteLine("The following character was created:");
+            character.PrintCharacter();
+        }
+
+        // input helper
         private static int[] ReadCommaSeparatedInput()
         {
             Write("Input numbers (comma separated)\n> ");
@@ -329,25 +290,24 @@ namespace LexiconTestTasksCsharp
             return numbers;
         }
 
-        private static void GameCharacter()
+        // input helper
+        private static bool ReadTwoNumbers(out int a, out int b)
         {
-            Write("Input a character name\n> ");
-            string input = ReadLine();
-
-            Character character;
-
             try
             {
-                character = new Character(input);
+                Write("Input a number\n> ");
+                a = Convert.ToInt32(ReadLine());
+                Write("Input another number\n> ");
+                b = Convert.ToInt32(ReadLine());
             }
             catch
             {
-                WriteLine("Could not create character.");
-                return;
+                a = b = 0;
+                WriteLine("You must input two numbers.");
+                return false;
             }
 
-            WriteLine("The following character was created:");
-            character.PrintCharacter();
+            return true;
         }
 
         private static string fileName = "file.txt";

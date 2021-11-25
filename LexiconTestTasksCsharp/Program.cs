@@ -1,6 +1,6 @@
-﻿using static LexiconTestTasksCsharp.Task;
+﻿using System;
+using static LexiconTestTasksCsharp.Task;
 using static System.Console;
-using System;
 
 namespace LexiconTestTasksCsharp
 {
@@ -22,7 +22,7 @@ namespace LexiconTestTasksCsharp
 
         private static bool Menu()
         {
-            WriteLine("\nLexicon Test and Assessment - C#.Net Programming");
+            WriteLine("\nLexicon Test and Assessment - C#.Net Programming\n");
 
             Write("Choose what to to:\n" +
                 "1)  Hello World.\n" +

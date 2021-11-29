@@ -23,15 +23,15 @@ namespace LexiconTestTasksCsharp
             WriteLine("Lexicon Test and Assessment - C#.Net Programming\n");
 
             Write("Choose what to to:\n" +
-                "1)  Hello World.\n" +
-                "2)  Input info.\n" +
-                "3)  Change terminal color.\n" +
+                "1)  Hello World\n" +
+                "2)  Input info\n" +
+                "3)  Change terminal color\n" +
                 "4)  Todays date.\n" +
-                "5)  Max of two numbers.\n" +
-                "6)  Guess a number.\n" +
-                "7)  Save text to file.\n" +
-                "8)  Read text from file.\n" +
-                "9)  Do some math.\n" +
+                "5)  Max of two numbers\n" +
+                "6)  Guess a number\n" +
+                "7)  Save text to file\n" +
+                "8)  Read text from file\n" +
+                "9)  Do some math\n" +
                 "10) Print multiplication table\n" +
                 "11) Sort an array\n" +
                 "12) Test palindrome\n" +

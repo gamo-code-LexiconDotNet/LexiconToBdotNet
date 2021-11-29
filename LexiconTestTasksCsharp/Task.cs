@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.ComponentModel;
 using static System.Console;
 
 namespace LexiconTestTasksCsharp
@@ -16,15 +17,17 @@ namespace LexiconTestTasksCsharp
         // 2
         public static void Name()
         {
-            string fname, lname, age;
-            Write("First name: ");
-            fname = ReadLine();
-            Write("Last name: ");
-            lname = ReadLine();
-            Write("Age name: ");
-            age = ReadLine();
+            string fname, lname;
+            int age;
 
-            WriteLine($"Your name is {fname} {lname} and you are {age} old");
+            WriteLine("Please input your...");
+            Write("First name\n> ");
+            fname = ReadLine();
+            Write("Last name\n> ");
+            lname = ReadLine();
+            age = ReadNumber<int>("Age", "Your age must be a number");
+
+            WriteLine($"Your name is {fname} {lname} and you are {age} years old");
         }
 
         // 3
@@ -53,8 +56,8 @@ namespace LexiconTestTasksCsharp
         {
             int a, b;
 
-            a = ReadNumber();
-            b = ReadNumber(msg: "Input anouter number");
+            a = ReadNumber<int>();
+            b = ReadNumber<int>(msg: "Input another number");
 
             WriteLine((a < b ? b : a));
         }
@@ -62,13 +65,13 @@ namespace LexiconTestTasksCsharp
         // 6
         public static void GuessNumber()
         {
-            int number = random.Next(1, 100);
+            int number = random.Next(1, 101);
             int guesses = 0;
             int guess;
 
             while (true)
             {
-                guess = ReadNumber(msg: string.Format("Guess {0}",
+                guess = ReadNumber<int>(msg: string.Format("Guess {0}",
                     (guesses < 1 ? "a number between 1 and 100" : "again")));
 
                 guesses++;
@@ -93,14 +96,14 @@ namespace LexiconTestTasksCsharp
 
             try
             {
-                File.WriteAllText(fileName, input);
+                File.WriteAllText(path, input);
             }
             catch
             {
                 WriteLine("Could not write to file.");
                 return;
             }
-            WriteLine("Saved.");
+            WriteLine("Saved to " + path.ToString());
         }
 
         // 8
@@ -109,20 +112,23 @@ namespace LexiconTestTasksCsharp
             string text;
             try
             {
-                text = File.ReadAllText(fileName);
+                text = File.ReadAllText(path);
             }
             catch
             {
                 WriteLine("Could not read from file.");
                 return;
             }
+            WriteLine("Text in file " + path.ToString());
             WriteLine(text);
         }
 
         // 9
         public static void Calculate()
         {
-            int num = ReadNumber();
+            float num = ReadNumber<float>(
+                "Input a decimal number.",
+                "You must input a decimal number.");
 
             WriteLine("{0}\n{1}\n{2}",
                 Math.Sqrt(num), Math.Pow(num, 2), Math.Pow(num, 10));
@@ -173,6 +179,7 @@ namespace LexiconTestTasksCsharp
         {
             Write("Input a word\n> ");
             string input = ReadLine();
+            input = input.ToLower();
 
             int i = 0;
             int j = input.Length - 1;
@@ -190,8 +197,8 @@ namespace LexiconTestTasksCsharp
         public static void PrintRange()
         {
             int a, b;
-            a = ReadNumber();
-            b = ReadNumber(msg: "Input another number");
+            a = ReadNumber<int>();
+            b = ReadNumber<int>(msg: "Input another number");
 
             if (a < b)
                 for (int i = a + 1; i < b; i++)
@@ -207,7 +214,7 @@ namespace LexiconTestTasksCsharp
         public static void OddEven()
         {
             string odd = "", even = "";
-            int[] numbers = ReadCommaSeparated();
+            int[] numbers = ReadCommaSeparatedNumbers();
 
             if (numbers.Length == 0) return;
 
@@ -225,7 +232,7 @@ namespace LexiconTestTasksCsharp
         public static void Sum()
         {
             int sum = 0;
-            int[] numbers = ReadCommaSeparated();
+            int[] numbers = ReadCommaSeparatedNumbers();
 
             if (numbers.Length == 0) return;
 
@@ -239,13 +246,17 @@ namespace LexiconTestTasksCsharp
         public static void GameCharacter()
         {
             Write("Input a character name\n> ");
-            string input = ReadLine();
+            string input1 = ReadLine();
+            Write("Input another character name\n> ");
+            string input2 = ReadLine();
 
-            Character character;
+            Character character1;
+            Character character2;
 
             try
             {
-                character = new Character(input);
+                character1 = new Character(input1);
+                character2 = new Character(input2);
             }
             catch
             {
@@ -253,12 +264,13 @@ namespace LexiconTestTasksCsharp
                 return;
             }
 
-            WriteLine("The following character was created:");
-            character.PrintCharacter();
+            WriteLine("The following characters where created:");
+            character1.PrintCharacter();
+            character2.PrintCharacter();
         }
 
-        // input helper
-        private static int[] ReadCommaSeparated()
+        // input helper for comma separated strings
+        private static int[] ReadCommaSeparatedNumbers()
         {
             Write("Input comma separated numbers\n> ");
             string input;
@@ -275,34 +287,40 @@ namespace LexiconTestTasksCsharp
                 catch
                 {
                     Write("Input only comma separated numbers\n> ");
-                    continue;
                 }
             }
 
             return numbers;
         }
 
-        private static int ReadNumber(
-            //out int num, 
+        // input helper for numbers
+        private static T ReadNumber<T>(
             string msg = "Input a number",
             string err = "You must input a number"
             )
         {
-            int num;
+            T num;
+            string input;
+
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
 
             Write("{0}\n> ", msg);
-            string input = ReadLine();
-
-            while (!int.TryParse(input, out num))
+            while (true)
             {
-                Write("{0}\n> ", err);
                 input = ReadLine();
+                try
+                {
+                    num = (T)converter.ConvertFromString(input);
+                    return num;
+                }
+                catch
+                {
+                    Write("{0}\n> ", err);
+                }
             }
-
-            return num;
         }
 
-        private static string fileName = "file.txt";
+        static string path = AppDomain.CurrentDomain.BaseDirectory + "file.txt";
         private static ConsoleColor terminalColor;
         private static Random random = new Random();
     }

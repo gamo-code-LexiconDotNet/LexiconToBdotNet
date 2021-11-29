@@ -20,24 +20,18 @@ namespace LexiconTestTasksCsharp
         public void PrintCharacter()
         {
             Console.WriteLine(
-                "\n {0}\n" +
-                "  Health: {1}\n" +
-                "  Strength: {2}\n" +
-                "  Luck: {3}\n",
-                Name, Health, Strength, Luck);
+                $"[{Name}]\n" +
+                $" Health: {Health}\n" +
+                $" Strength: {Strength}\n" +
+                $" Luck: {Luck}"
+                );
         }
 
-        public string Name { get => name; private set => name = value; }
-        public int Health { get => health; private set => health = value; }
-        public int Strength { get => strength; private set => strength = value; }
-        public int Luck { get => luck; private set => luck = value; }
+        public string Name { get; private set; }
+        public int Health { get; private set; }
+        public int Strength { get; private set; }
+        public int Luck { get; private set; }
 
-        private string name;
-        private int health;
-        private int strength;
-        private int luck;
-
-        private Random random = new Random();
+        private static Random random = new Random();
     }
-
 }

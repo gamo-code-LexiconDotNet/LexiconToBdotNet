@@ -16,13 +16,11 @@ namespace LexiconTestTasksCsharp
             bool show = true;
             while (show)
                 show = Menu();
-
-            Environment.Exit(0);
         }
 
         private static bool Menu()
         {
-            WriteLine("\nLexicon Test and Assessment - C#.Net Programming\n");
+            WriteLine("Lexicon Test and Assessment - C#.Net Programming\n");
 
             Write("Choose what to to:\n" +
                 "1)  Hello World.\n" +
@@ -50,24 +48,32 @@ namespace LexiconTestTasksCsharp
             switch (input)
             {
                 case "0": return false;
-                case "1": HelloWorld(); return true;
-                case "2": Name(); return true;
-                case "3": TerminalColor(); return true;
-                case "4": Today(); return true;
-                case "5": Max(); return true;
-                case "6": GuessNumber(); return true;
-                case "7": SaveToFile(); return true;
-                case "8": ReadFromFile(); return true;
-                case "9": Calculate(); return true;
-                case "10": MultiplicationTable(); return true;
-                case "11": SortArray(); return true;
-                case "12": TestPalindrome(); return true;
-                case "13": PrintRange(); return true;
-                case "14": OddEven(); return true;
-                case "15": Sum(); return true;
-                case "16": GameCharacter(); return true;
+                case "1": HelloWorld(); return HoldForInput();
+                case "2": Name(); return HoldForInput();
+                case "3": TerminalColor(); return HoldForInput();
+                case "4": Today(); return HoldForInput();
+                case "5": Max(); return HoldForInput();
+                case "6": GuessNumber(); return HoldForInput();
+                case "7": SaveToFile(); return HoldForInput();
+                case "8": ReadFromFile(); return HoldForInput();
+                case "9": Calculate(); return HoldForInput();
+                case "10": MultiplicationTable(); return HoldForInput();
+                case "11": SortArray(); return HoldForInput();
+                case "12": TestPalindrome(); return HoldForInput();
+                case "13": PrintRange(); return HoldForInput();
+                case "14": OddEven(); return HoldForInput();
+                case "15": Sum(); return HoldForInput();
+                case "16": GameCharacter(); return HoldForInput();
                 default: return true;
             }
+        }
+
+        private static bool HoldForInput(string msg = "\n\tPress any key to continue...")
+        {
+            Write(msg);
+            ReadKey();
+            Clear();
+            return true;
         }
     }
 }
